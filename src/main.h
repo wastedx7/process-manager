@@ -1,7 +1,11 @@
+// HEADERS !!
 #include <stdio.h>
 #include <unistd.h>
+#include <dirent.h>
+#include <ctype.h>
 
-// basic structure 
+// DATA STRUCTURES
+// basic structure for all processes 
 typedef struct {
     int pid;
     char name[1024];
@@ -11,10 +15,15 @@ typedef struct {
     float cpu;
 } Process; 
 
+// for read_stats
 typedef struct {
     unsigned long long user, nice, system, idle, iowait, irq, softirq, steal;
     unsigned long long total;
 } CPUStats;
 
+// FUNCTIONS AND IMPLEMENTATIONS
 void read_stats(CPUStats *s);
-// unsigned long long get_total_cpu_time();
+int read_processes(Process *list);
+
+// HELPER FUNCTIONS 
+int is_numeric(const char *s);

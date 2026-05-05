@@ -1,5 +1,6 @@
 #include "main.h"
 
+// to read all cpu stats and return the time in jiffies
 void read_stats(CPUStats *s){
     FILE *fp = fopen("/proc/stat", "r");
     if(!fp){
@@ -14,4 +15,9 @@ void read_stats(CPUStats *s){
     s->total = s->user + s->nice + s->system + s->idle + s->iowait + s->irq + s->softirq + s->steal;
 
     fclose(fp);
+}
+
+// 
+int read_processes(Process *list){
+    return 0;
 }
