@@ -36,8 +36,16 @@ int read_processes_stats(Process *list){
     char state;     // variable to store the state of a process
 
     sscanf(buff, "%d (%[^)]) %c", &list->pid, com, &state);
-    my_strcpy(list->name, com);
+    my_strcpy(com, list->name);     // copy name into com
 
-    
+    char* ptr = buff;   // pointer to a char to buff
+    int field;          // field counter in buff
+
+    while(field < 14 && *ptr){
+        if(*ptr == ' ') field++;
+        ptr++;
+    }
+
+    sscanf(buff, "%lu %lu", list->utime, list->stime);  // read from buff and store the utime and stime
     return 0;
 }
