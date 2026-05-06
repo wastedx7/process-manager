@@ -3,6 +3,11 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
+
+// DEFINE CONSTANTS
+#define MAX_PROCS = 4096
 
 // DATA STRUCTURES
 // basic structure for all processes 
@@ -24,6 +29,7 @@ typedef struct {
 // FUNCTIONS AND IMPLEMENTATIONS
 void read_cpu_stats(CPUStats *s);
 int read_processes_stats(Process *list);
+int count_procs(Process* list, size_t max);
 
 // HELPER FUNCTIONS 
 int is_numeric(const char *s);

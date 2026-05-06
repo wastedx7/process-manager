@@ -17,7 +17,7 @@ void read_cpu_stats(CPUStats *s){
     fclose(fp);
 }
 
-// 
+// to read utime and stime !!
 int read_processes_stats(Process *list){
     char path[256], buff[1024];
     snprintf(path, sizeof(path), "/proc/%d/stat", list->pid);
@@ -46,7 +46,59 @@ int read_processes_stats(Process *list){
         ptr++;
     }
 
-    sscanf(buff, "%lu %lu", &list->utime, &list->stime);  // read from buff and store the utime and stime
+    sscanf(ptr, "%lu %lu", &list->utime, &list->stime);  // read from buff and store the utime and stime
     return 0;
 }
 
+// read vmrss in KB
+int read_vmrss(Process *list){
+    char path[256];
+    char line[256];
+
+    snprintf(path, sizeof(path), "/proc/%d/status", list->pid);
+    FILE *f = fopen(path, "r");
+    if(!f) return -1;
+
+    while(fgets(line, sizeof(line), f)){
+        if(my_strncmp(line, "VmRSS:", 6) == 0){
+            sscanf(line, "VmRSS: %ld", &list->memory);
+            fclose(f);
+            return 0;
+        }
+    }
+    fclose(f);
+    return -1;
+}
+
+// return the number of processes
+int count_procs(Process* list, size_t max){
+    DIR *dir = opendir("/proc");
+    if(!dir){
+        perror("opendir");
+        return -1;
+    }
+
+    // entry is the pointer to the next directory
+    struct dirent* entry;
+    int count = 0;
+
+    // continue until the next dir is not null, also should be numeric only
+    while((entry = readdir(dir)) != NULL && count < max){
+        if(!is_numeric(entry->d_name)) continue;
+
+        // atoi is ascii to integer
+        int pid = atoi(entry->d_name);
+        
+        // init all the fields to 0
+        Process p = {0};
+        p.pid = pid;
+
+        if(read_processes_stats(&p) != 0)
+            continue;
+        read_vmrss(&p);
+
+        list[count++] = p;
+    }
+    closedir(dir);
+    return count;
+}
