@@ -7,7 +7,7 @@
 #include <string.h>
 
 // DEFINE CONSTANTS
-#define MAX_PROCS = 4096
+#define MAX_PROCS 4096
 
 // DATA STRUCTURES
 // basic structure for all processes 
@@ -29,7 +29,7 @@ typedef struct {
 // FUNCTIONS AND IMPLEMENTATIONS
 void read_cpu_stats(CPUStats *s);
 int read_processes_stats(Process *list);
-int count_procs(Process* list, size_t max);
+int count_procs(Process* list, int max);
 
 // HELPER FUNCTIONS 
 int is_numeric(const char *s);

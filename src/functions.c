@@ -9,7 +9,7 @@ void read_cpu_stats(CPUStats *s){
     }
     // user, nice, system, idle, iowait, irq, softirq, steal;
     char label[10];
-    fscanf(fp, "%s %llu %llu %llu %llu %llu %llu %llu",
+    fscanf(fp, "%s %llu %llu %llu %llu %llu %llu %llu %llu",
            label, &s->user, &s->nice, &s->system, &s->idle, &s->iowait, &s->irq, &s->softirq, &s->steal);
 
     s->total = s->user + s->nice + s->system + s->idle + s->iowait + s->irq + s->softirq + s->steal;
@@ -36,7 +36,7 @@ int read_processes_stats(Process *list){
     char state;     // variable to store the state of a process
 
     sscanf(buff, "%d (%[^)]) %c", &list->pid, com, &state);
-    my_strcpy(com, list->name);     // copy name into com
+    my_strcpy(list->name, com);     // copy name into com
 
     char* ptr = buff;   // pointer to a char to buff
     size_t field = 1;          // field counter in buff
@@ -71,7 +71,7 @@ int read_vmrss(Process *list){
 }
 
 // return the number of processes
-int count_procs(Process* list, size_t max){
+int count_procs(Process* list, int max){
     DIR *dir = opendir("/proc");
     if(!dir){
         perror("opendir");
