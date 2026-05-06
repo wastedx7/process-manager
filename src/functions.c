@@ -1,7 +1,7 @@
 #include "main.h"
 
 // to read all cpu stats and return the time in jiffies
-void read_stats(CPUStats *s){
+void read_cpu_stats(CPUStats *s){
     FILE *fp = fopen("/proc/stat", "r");
     if(!fp){
         perror("could not open /proc/stat");
@@ -18,6 +18,26 @@ void read_stats(CPUStats *s){
 }
 
 // 
-int read_processes(Process *list){
+int read_processes_stats(Process *list){
+    char path[256], buff[1024];
+    snprintf(path, sizeof(path), "/proc/%d/stat", list->pid);
+
+    FILE *f = fopen(path, "r");
+    if (!f) return -1;
+
+    if (!fgets(buff, sizeof(buff), f)){
+        fclose(f);
+        return -1;
+    }
+
+    fclose(f);
+
+    char com[256];  // variable to store the command
+    char state;     // variable to store the state of a process
+
+    sscanf(buff, "%d (%[^)]) %c", &list->pid, com, &state);
+    my_strcpy(list->name, com);
+
+    
     return 0;
 }

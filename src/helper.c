@@ -8,3 +8,14 @@ int is_numeric(const char *s){
     }
     return 1;
 }
+
+char* my_strcpy(char* dest, const char* src){
+    char* ret = dest;
+    while(*src){
+        *dest = *src;
+        dest++;
+        src++;
+    }
+    *dest = '\0';
+    return ret;
+}

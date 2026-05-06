@@ -4,7 +4,7 @@ int main(){
     
     CPUStats s;
 
-    read_stats(&s);  // called once
+    read_cpu_stats(&s);  // called once
 
     printf("CPU Stats:\n");
     printf("User: %llu\n", s.user);

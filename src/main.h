@@ -22,8 +22,9 @@ typedef struct {
 } CPUStats;
 
 // FUNCTIONS AND IMPLEMENTATIONS
-void read_stats(CPUStats *s);
-int read_processes(Process *list);
+void read_cpu_stats(CPUStats *s);
+int read_processes_stats(Process *list);
 
 // HELPER FUNCTIONS 
 int is_numeric(const char *s);
+char* my_strcpy(char* dest, const char* src);
