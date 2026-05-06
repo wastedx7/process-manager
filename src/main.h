@@ -28,3 +28,4 @@ int read_processes_stats(Process *list);
 // HELPER FUNCTIONS 
 int is_numeric(const char *s);
 char* my_strcpy(char* dest, const char* src);
+int my_strncmp(const char* str1, const char* str2, size_t n);
