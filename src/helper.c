@@ -37,3 +37,13 @@ int my_strncmp(const char* str1, const char* str2, size_t n){
 
     return (unsigned char)str1[i] - (unsigned char)str2[i];
 }
+
+// memcpy personal implementation
+void* my_memcpy(void* dest, const void* src, size_t bytes){
+    char* d = (char*)dest;
+    const char* s = (const char*)src;
+    for(size_t i=0; i<bytes; i++){
+        d[i] = s[i];
+    }
+    return dest;
+}

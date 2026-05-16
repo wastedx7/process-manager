@@ -35,3 +35,4 @@ int count_procs(Process* list, int max);
 int is_numeric(const char *s);
 char* my_strcpy(char* dest, const char* src);
 int my_strncmp(const char* str1, const char* str2, size_t n);
+void* my_memcpy(void* dest, const void* src, size_t bytes);
