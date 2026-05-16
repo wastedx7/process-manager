@@ -32,7 +32,7 @@ int read_processes_stats(Process *list){
 
     fclose(f);
 
-    char com[256];  // variable to store the command
+    char com[1024];  // variable to store the command
     char state;     // variable to store the state of a process
 
     sscanf(buff, "%d (%[^)]) %c", &list->pid, com, &state);

@@ -13,7 +13,7 @@
 // basic structure for all processes 
 typedef struct {
     int pid;
-    char name[2048];
+    char name[1024];
     unsigned long utime, stime;
     unsigned long total_time;
     long memory; // VmRss (amount of process mem in ram)
