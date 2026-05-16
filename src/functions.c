@@ -1,11 +1,11 @@
 #include "main.h"
 
 // to read all cpu stats and return the time in jiffies
-void read_cpu_stats(CPUStats *s){
+int read_cpu_stats(CPUStats *s){
     FILE *fp = fopen("/proc/stat", "r");
     if(!fp){
         perror("could not open /proc/stat");
-        return;
+        return -1;
     }
     // user, nice, system, idle, iowait, irq, softirq, steal;
     char label[10];
@@ -15,6 +15,7 @@ void read_cpu_stats(CPUStats *s){
     s->total = s->user + s->nice + s->system + s->idle + s->iowait + s->irq + s->softirq + s->steal;
 
     fclose(fp);
+    return s->total;
 }
 
 // to read utime and stime !!
