@@ -72,6 +72,7 @@ int read_vmrss(Process *list){
 }
 
 // return the number of processes
+// only print the no of processes
 int count_procs(Process* list, int max){
     DIR *dir = opendir("/proc");
     if(!dir){
